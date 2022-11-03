@@ -1,8 +1,7 @@
 <?php
-move_uploaded_file ($_FILES["foto"] ["tmp_name"], "images/" . $_FILES["foto"] ["name"]);
 $fichero = fopen("datos.txt", "a");
-fwrite($fichero, $_POST["nombre"] . ",");
-fwrite($fichero, $_POST["apellido"] . ",");
+fwrite($fichero, "Nombre: ".$_POST["nombre"] . "\n");
+fwrite($fichero, "Apellido: ".$_POST["apellido"] . "\n");
 fclose($fichero);
 echo "Datos guardados en el fichero datos.txt";
 ?>
