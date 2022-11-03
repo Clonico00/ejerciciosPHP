@@ -1,0 +1,5 @@
+Javier,Javier1234!,123456a,Javier,Martinez,Garcia,javier@gmail.com,
+Pepe,Pepe1234!,123457b,Pepe,Ruiz,Porcel,pepe@gmail.com,
+Juan,Juan1234!,123458c,Juan,Gonzalez,Tejada,juan@gmail.com,
+mercedes,Mercedes1!,123456789,mercedes,tejada,porcel,mercedes@gmail.com,
+Cesar,Cesar1234!,0123456,Cesar,Martinez,Garcia,cesar@gmail.com,

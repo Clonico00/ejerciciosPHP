@@ -1,0 +1,16 @@
+label{
+  display: inline-block;
+  margin: 0.5em;
+  width: 12%;
+  padding: 0;
+ 
+}
+.formularios{
+  border: #1991E7 1px dotted;
+}
+textarea{
+    vertical-align: top;
+}
+h1{
+    color: #1991E7;
+}

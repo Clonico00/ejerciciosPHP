@@ -1,0 +1,12 @@
+.formularios{
+    border: #1991E7 1px dotted;
+}
+h1{
+    color: #1991E7;
+}
+label{
+    display: inline-block;
+    margin: 0.5em;
+    width: 15%;
+    padding: 0;
+}
