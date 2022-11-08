@@ -34,7 +34,4 @@ echo"<br>";
 echo"<br>";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "Informacion de la sesion borrada";
-    if(isset($_POST["Borrar"])){
-
-    }
 }
