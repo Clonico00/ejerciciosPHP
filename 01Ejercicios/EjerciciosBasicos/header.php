@@ -1,5 +1,5 @@
 <?php
-header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+header("Cache-Control: no-cache, must-revalidate");
 header("Refresh: 10; $_SERVER[PHP_SELF]");
 echo "<h1>Fecha actual: " . date("d/m/Y H:i:s") . "</h1>";
 echo "<br>";
