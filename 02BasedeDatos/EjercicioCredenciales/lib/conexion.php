@@ -1,24 +1,26 @@
 <?php
+
+require_once 'config/config.php';
+
 class Conexion
 {
-    //atributos de la clase
     private $host;
     private $usuario;
     private $password;
     private $baseDatos;
     private $charset;
     private $conexion;
-    //constructor de la clase
-    public function __construct($host,$usuario,$password,$baseDatos)
+
+    public function __construct()
     {
-        $this->host = $host;
-        $this->usuario = $usuario;
-        $this->password = $password;
-        $this->baseDatos = $baseDatos;
+        $this->host = SERVIDOR;
+        $this->usuario = USUARIO;
+        $this->password = PASS;
+        $this->baseDatos = BASE_DATOS;
         $this->charset = "utf8";
         $this->conexion = null;
     }
-    //método para conectar a la base de datos
+
     public function conectar()
     {
         try {
@@ -33,7 +35,7 @@ class Conexion
             echo "Error: " . $e->getMessage();
         }
     }
-    //método para desconectar de la base de datos
+
     public function desconectar()
     {
         $this->conexion = null;
