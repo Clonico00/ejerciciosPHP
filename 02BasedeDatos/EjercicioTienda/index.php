@@ -4,7 +4,7 @@ $database = "mistiendas";
 $username = "admin";
 $password = "admin123";
 try {
-    $conexion = @new mysqli($servername, $username, $password, $database);
+    $conexion = new mysqli($servername, $username, $password, $database);
     ?>
     <!DOCTYPE html>
     <html lang="en">
