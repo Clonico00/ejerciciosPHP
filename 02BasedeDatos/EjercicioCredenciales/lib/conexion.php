@@ -40,4 +40,9 @@ class Conexion
     {
         $this->conexion = null;
     }
+
+    public function prepare($sql)
+    {
+        return $this->conexion->prepare($sql);
+    }
 }

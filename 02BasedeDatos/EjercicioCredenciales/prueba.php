@@ -26,7 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $conexion = new Conexion();
     $conexion->conectar();
-    
+
+    $sql = "SELECT * FROM usuarios WHERE usuarios.nombre = :usuario AND usuarios.clave = :password";
+    $query = $conexion->prepare($sql);
+    $query->bindParam(':usuario', $_POST['usuario']);
+    $query->bindParam(':password', $_POST['password']);
+    $query->execute();
+
+    if ($query->rowCount() > 0) {
+        echo "Login correcto";
+    } else {
+        echo "Login incorrecto";
+    }
     
 }
-?>
