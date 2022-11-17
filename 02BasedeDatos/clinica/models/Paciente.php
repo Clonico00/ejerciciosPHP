@@ -98,7 +98,8 @@ class Paciente extends BaseDatos
     public function consultarTodos()
     {
         $sql = "SELECT * FROM miclinica.pacientes";
-        $stmt = $this->prepare($sql);
+        $conexion=$this->conectar();
+        $stmt = $conexion->consultar($sql);
         $stmt->execute();
         $pacientes = $stmt->fetchAll();
         return $pacientes;
