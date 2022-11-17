@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
     } else if (isset($_POST['rendirse'])) {
-        if ($_SESSION['tiradas'] == 0 ) {
+        if (!$_SESSION['tiradas']) {
             echo "No has tirado nada";
         } else if ($_SESSION['tiradas'] == 5) {
             foreach ($_SESSION['dado'] as $valor) {
@@ -70,9 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "No has sacado nada";
             }
         }
-        session_destroy();
+        $_SESSION['tiradas'] = 0;
+        $_SESSION['dado'] = [];
+        $_SESSION['dadoValor'] = [];
     }
-
 
 }
 ?>
