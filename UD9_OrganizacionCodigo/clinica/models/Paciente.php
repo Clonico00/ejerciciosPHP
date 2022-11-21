@@ -11,6 +11,8 @@ class Paciente extends BaseDatos
     private $email;
     private $password;
 
+
+
     public function __construct($id, $nombre, $apellidos, $email, $password)
     {
         $this->id = $id;
@@ -59,50 +61,9 @@ class Paciente extends BaseDatos
     {
         $this->password = $password;
     }
-    public function insertar()
-    {
-        $sql = "INSERT INTO miclinica.pacientes (nombre, apellidos, correo, password) VALUES (:nombre, :apellidos, :email, :password)";
-        $stmt = $this->prepare($sql);
-        $stmt->bindParam(':nombre', $this->nombre);
-        $stmt->bindParam(':apellidos', $this->apellidos);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':password', $this->password);
-        $stmt->execute();
-    }
-    public function actualizar()
-    {
-        $sql = "UPDATE miclinica.pacientes SET nombre = :nombre, apellidos = :apellidos, correo = :email, password = :password WHERE id = :id";
-        $stmt = $this->prepare($sql);
-        $stmt->bindParam(':nombre', $this->nombre);
-        $stmt->bindParam(':apellidos', $this->apellidos);
-        $stmt->bindParam(':email', $this->email);
-        $stmt ->bindParam(':password', $this->password);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-    }
-    public function eliminar()
-    {
-        $sql = "DELETE FROM miclinica.pacientes WHERE id = :id";
-        $stmt = $this->prepare($sql);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
-    }
-    public function consultar($conexion)
-    {
-        $sql = "SELECT * FROM miclinica.pacientes";
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute();
-        $pacientes = $stmt->fetchAll();
-        return $pacientes;
-    }
-    public function consultarTodos()
-    {
-        $sql = "SELECT * FROM miclinica.pacientes";
-        $conexion=$this->conectar();
-        $stmt = $conexion->consultar($sql);
-        $stmt->execute();
-        $pacientes = $stmt->fetchAll();
-        return $pacientes;
+    public function getAll(): ?array{
+        $this->consulta("SELECT * FROM miclinica.pacientes");
+        return $this->extraer_todos();
     }
 
 

@@ -7,61 +7,49 @@ require_once 'config\config.php';
 
 class BaseDatos
 {
-    private $host;
-    private $usuario;
-    private $password;
-    private $baseDatos;
-    private $charset;
+    public PDO $conexion;
 
-    private PDO $conexion;
-    private mixed $resultado;
-
-    public function __construct()
-    {
-        $this->host = SERVIDOR;
-        $this->usuario = USUARIO;
-        $this->password = PASS;
-        $this->baseDatos = BASE_DATOS;
-        $this->charset = "utf8";
+    function __construct(
+        private string $servidor = SERVIDOR,
+        private string $usuario = USUARIO,
+        private string $pass = PASS,
+        private string $base_datos = BASE_DATOS,
+    ){
+        $this->conexion = $this->conectar();
     }
 
-    public function conectar()
-    {
-        try {
-            $dsn = "mysql:host=" . $this->host . ";dbname=" . $this->baseDatos . ";charset=" . $this->charset;
-            $opciones = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            ];
-            $this->conexion = new PDO($dsn, $this->usuario, $this->password, $opciones);
-            return $this->conexion;
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+    private function conectar(): PDO {
+        try{
+            $opciones = array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+                PDO::MYSQL_ATTR_FOUND_ROWS => true
+            );
+            $conexion = new PDO("mysql:host={$this->servidor};dbname={$this->base_datos};charset=utf8",$this->usuario, $this->pass, $opciones);
+            return $conexion;
+        }catch(PDOException $e){
+            echo 'Ha surgido in error y no se puede cpnectar a la base de datps. Detalle: '.$e->getMessage();
+            exit;
+            }
         }
+
+    public function consulta(string $consultaSQL): void{
+        $this -> resultado = $this -> conexion -> query($consultaSQL);
     }
-    public function consulta($consulta){
-        $this->resultado = $this->conexion->query($consulta);
-        return $this->resultado;
+
+    public function extraer_registro():mixed{
+        return( $fila = $this -> resultado -> fetch(PDO::FETCH_ASSOC ))? $fila:false;
     }
-    public function prepare($sql)
-    {
-        return $this->conexion->prepare($sql);
+
+    public function extraer_todos(): array{
+        return $this -> resultado -> fetchAll(PDO::FETCH_ASSOC);
     }
-    public function extraer_registro(): mixed
-    {
-        return ($fila = $this->resultado->fetch(PDO::FETCH_ASSOC)) ? $fila : false;
+
+    public function FilasAfectadas():int{
+        return $this -> resultado -> rowCount();
     }
-    public function extraer_todos(): mixed
-    {
-        return ($this->resultado->fetchAll(PDO::FETCH_ASSOC));
-    }
-    public function filas_afectadas(): int
-    {
-        return $this->resultado->rowCount();
-    }
-    public function ultimo_id(): int
-    {
-        return $this->conexion->lastInsertId();
+
+    public function ultimoIdInsertado():int{
+        return $this -> conexion -> lastInsertId();
     }
 
 
