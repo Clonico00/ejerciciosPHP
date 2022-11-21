@@ -10,18 +10,10 @@
 require_once 'autoloader.php';
 use Models\Paciente;
 use Lib\BaseDatos;
+use Controllers\PacienteController;
 
-$bd = new BaseDatos();
-$bd->consulta("SELECT * FROM miclinica.pacientes");
-$listaPacientes = $bd->extraer_todos();
-
-foreach ($listaPacientes as $paciente) {
-    $paciente = new Paciente($paciente['id'], $paciente['nombre'], $paciente['apellidos'], $paciente['correo'], $paciente['password']);
-    echo "<p>Nombre: {$paciente->getNombre()} {$paciente->getApellidos()}</p>";
-    echo "<p>Email: {$paciente->getEmail()}</p>";
-    echo "<p>Contraseña: {$paciente->getPassword()}</p>";
-    echo "<hr>";
-}
+$controlador = new PacienteController;
+$controlador->mostrarTodos();
 
 
 ?>

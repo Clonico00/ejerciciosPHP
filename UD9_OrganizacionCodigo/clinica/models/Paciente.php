@@ -13,14 +13,11 @@ class Paciente extends BaseDatos
 
 
 
-    public function __construct($id, $nombre, $apellidos, $email, $password)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->nombre = $nombre;
-        $this->apellidos = $apellidos;
-        $this->email = $email;
-        $this->password = $password;
+        parent::__construct();
     }
+
     public function getId()
     {
         return $this->id;
