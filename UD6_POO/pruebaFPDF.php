@@ -1,5 +1,5 @@
 <?php
-require_once "../Libraries/fpdf184/fpdf.php";
+require_once "../libraries/fpdf184/fpdf.php";
 
 $pdf = new FPDF();
 $pdf->AddPage();
