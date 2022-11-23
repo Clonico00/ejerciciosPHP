@@ -21,11 +21,13 @@ class DoctorController
     }
     public function registro():void
     {
-        $this->pages->render('doctor/registroDoctor');
+        $this->pages->render('doctor/registrodoctor');
     }
+
     public function save(){
         $doctor = $_POST['data'];
-
+        $this->doctorService->registro($doctor);
     }
+
 
 }

@@ -14,9 +14,9 @@ class DoctorService
     {
         return $this->doctorRepository->getAll();
     }
-    public function save(array $doctor): void
+    public function registro(array $doctor): void
     {
-        $this->doctorRepository->save($doctor);
+        $this->doctorRepository->registro($doctor);
     }
     public function delete(int $id): void
     {
