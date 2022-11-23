@@ -7,6 +7,7 @@ class Doctor
     private $apellidos;
     private $telefono;
     private $especialidad;
+
     public function __construct($id, $nombre, $apellidos, $telefono, $especialidad)
     {
         $this->id = $id;
@@ -55,4 +56,15 @@ class Doctor
     {
         $this->especialidad = $especialidad;
     }
+    public static function fromArray(array $data) : Doctor
+    {
+        return new Doctor(
+            $data['id'],
+            $data['nombre'],
+            $data['apellidos'],
+            $data['telefono'],
+            $data['especialidad']);
+
+    }
+
 }
