@@ -2,6 +2,7 @@
 namespace Models;
 
 use Lib\BaseDatos;
+use PDOException;
 
 class Paciente extends BaseDatos
 {
@@ -61,6 +62,20 @@ class Paciente extends BaseDatos
     public function getAll(): ?array{
         $this->consulta("SELECT * FROM miclinica.pacientes");
         return $this->extraer_todos();
+    }
+    public function buscarPorNombre(string $nombre): ?array{
+        if(is_null($nombre)) return false;
+        $sql = "SELECT * FROM miclinica.pacientes WHERE nombre LIKE ?";
+        $consult = $this->conexion->prepare($sql);
+        $consult->bindParam(1, $nombre);
+        try {
+            $consult->execute();
+            return $consult->fetchAll();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+
     }
 
 

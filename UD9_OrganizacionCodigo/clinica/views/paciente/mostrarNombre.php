@@ -1,7 +1,8 @@
-<h2>Mis Pacientes</h2>
+<h2>Mi Paciente</h2>
 <?php
-foreach ($todos_mis_pacientes as $fila) {
+foreach ($pacienteConNombre as $fila) {
     foreach ($fila as $campo => $valor) {
         echo "$campo: $valor<br> <br>";
     }
 }
+
