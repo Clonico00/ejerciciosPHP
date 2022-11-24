@@ -44,13 +44,20 @@ class DoctorRepository
     public function registro(array $doctor): void
     {
         try {
+
             $sql = "INSERT INTO miclinica.doctores (nombre, apellidos, telefono, especialidad) VALUES (:nombre, :apellidos, :telefono, :especialidad)";
             $consult = $this->baseDatos->conexion->prepare($sql);
             $consult->bindParam(':nombre', $doctor['nombre']);
             $consult->bindParam(':apellidos', $doctor['apellidos']);
             $consult->bindParam(':telefono', $doctor['telefono']);
             $consult->bindParam(':especialidad', $doctor['especialidad']);
-            $consult->execute();
+
+            if ($consult->execute()) {
+                header('Location: indexFrontController.php?controller=Doctor&action=listar');
+            } else {
+                echo "Error al registrar el doctor";
+            }
+
 
         } catch (PDOException $e) {
             echo $e->getMessage();
