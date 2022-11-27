@@ -18,8 +18,7 @@ class UsuarioController
 
     public function index()
     {
-        /*mandar a indexLogeado.php usando pages*/
-        echo "Bienvenido";
+        echo "<h2>Bienvenido </h2>";
     }
 
     public function registro()
@@ -34,13 +33,12 @@ class UsuarioController
             $password = $_POST['password'];
             $result = $this->usuarioService->login($usuario, $password);
             if ($result) {
-                echo "Login correcto";
                 $_SESSION['login'] = true;
-                echo "Login correcto";
-                header("Location: index.php?controller=Usuario&action=index");
+                echo "<h2>Logeado correctamente</h2>";
+                header("Location: indexLogeado.php");
             } else {
-//                $_SESSION['login'] = false;
-                echo "Error al iniciar sesion";
+                $_SESSION['login'] = false;
+
             }
         }
     }
