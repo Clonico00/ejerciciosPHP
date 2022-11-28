@@ -24,6 +24,10 @@ class UsuarioService
         return $this->usuarioRepository->insert($usuario);
     }
 
+    public function comprobarRol(string $usuario): bool
+    {
+        return $this->usuarioRepository->comprobarRol($usuario);
+    }
 
 }
 

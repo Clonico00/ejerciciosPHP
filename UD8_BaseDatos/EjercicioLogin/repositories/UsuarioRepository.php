@@ -21,7 +21,6 @@ class UsuarioRepository
         if ($consult->execute()) {
             $result = $consult->fetch();
             if ($result) {
-
                 if (password_verify($password, $result['clave'])) {
                     return true;
                 } else {
@@ -48,6 +47,26 @@ class UsuarioRepository
         $consult->bindParam(':clave', $password);
         if ($consult->execute()) {
             return true;
+        } else {
+            return false;
+        }
+    }
+    public function comprobarRol(string $usuario): bool
+    {
+        $sql = "SELECT * FROM usuarios WHERE empresa.usuarios.nombre = :usuario";
+        $consult = $this->baseDatos->conexion->prepare($sql);
+        $consult->bindParam(':usuario', $usuario);
+        if ($consult->execute()) {
+            $result = $consult->fetch();
+            if ($result) {
+                if ($result['rol'] == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

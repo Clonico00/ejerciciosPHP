@@ -26,10 +26,20 @@ class UsuarioController
             $usuario = $_POST['usuario'];
             $password = $_POST['password'];
             $result = $this->usuarioService->login($usuario, $password);
+            $result2 = $this->usuarioService->comprobarRol($usuario);
             if ($result) {
                 $_SESSION['login'] = true;
                 echo "<h2>Logeado correctamente</h2>";
-                header("Location: indexLogeado.php");
+                if ($result2) {
+                    echo "<h2>Es administrador</h2>";
+                    $_SESSION['admin'] = true;
+                    header("Location: indexAdmin.php");
+
+                } else {
+                    echo "<h2>No es administrador</h2>";
+                    $_SESSION['admin'] = false;
+                    header("Location: indexLogeado.php");
+                }
             } else {
                 $_SESSION['login'] = false;
 
