@@ -8,6 +8,7 @@ class Usuario extends BaseDatos
 {
     private $usuario;
     private $password;
+    private $id;
 
     public function __construct()
     {
@@ -28,6 +29,14 @@ class Usuario extends BaseDatos
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 }

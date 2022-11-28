@@ -15,18 +15,22 @@ class UsuarioRepository
     }
     public function login(string $usuario, string $password): bool
     {
-        $sql = "SELECT * FROM usuarios WHERE empresa.usuarios.nombre = :usuario AND empresa.usuarios.clave = :clave";
+        $sql = "SELECT * FROM usuarios WHERE empresa.usuarios.nombre = :usuario";
         $consult = $this->baseDatos->conexion->prepare($sql);
         $consult->bindParam(':usuario', $usuario);
-        $consult->bindParam(':clave', $password);
         if ($consult->execute()) {
             $result = $consult->fetch();
             if ($result) {
-                return true;
+
+                if (password_verify($password, $result['clave'])) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
@@ -35,6 +39,8 @@ class UsuarioRepository
     {
         $usere = $usuario->getUsuario();
         $password = $usuario->getPassword();
+
+        $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
 
         $sql = "INSERT INTO usuarios (nombre, clave) VALUES (:nombre, :clave)";
         $consult = $this->baseDatos->conexion->prepare($sql);
@@ -46,7 +52,5 @@ class UsuarioRepository
             return false;
         }
     }
-
-
 
 }
