@@ -21,6 +21,8 @@ frontController::main();
     <input type="submit" value="Login">
 </form>
 
+<a href="views/registro.php">Registrarse</a>
+
 
 
 

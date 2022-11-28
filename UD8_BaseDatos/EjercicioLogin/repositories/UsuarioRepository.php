@@ -26,9 +26,27 @@ class UsuarioRepository
             } else {
                 return false;
             }
+        }else{
+            return false;
+        }
+    }
+
+    public function insert(Usuario $usuario): bool
+    {
+        $usere = $usuario->getUsuario();
+        $password = $usuario->getPassword();
+
+        $sql = "INSERT INTO usuarios (nombre, clave) VALUES (:nombre, :clave)";
+        $consult = $this->baseDatos->conexion->prepare($sql);
+        $consult->bindParam(':nombre', $usere);
+        $consult->bindParam(':clave', $password);
+        if ($consult->execute()) {
+            return true;
         } else {
             return false;
         }
     }
+
+
 
 }

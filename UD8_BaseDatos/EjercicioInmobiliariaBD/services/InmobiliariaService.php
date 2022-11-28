@@ -10,4 +10,9 @@ class InmobiliariaService
     {
         $this->inmobiliariaRepository = new InmobiliariaRepository();
     }
+
+    public function alta($tipo, $zona, $direccion, $ndormitorios, $precio, $tamano, $extras, $foto, $observaciones)
+    {
+        return $this->inmobiliariaRepository->alta($tipo, $zona, $direccion, $ndormitorios, $precio, $tamano, $extras, $foto, $observaciones);
+    }
 }

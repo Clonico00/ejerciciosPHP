@@ -18,12 +18,6 @@ class UsuarioController
 
     public function index()
     {
-        echo "<h2>Bienvenido </h2>";
-    }
-
-    public function registro()
-    {
-        echo "Controlador Usuarios, Accion registro";
     }
 
     public function login()
@@ -42,5 +36,22 @@ class UsuarioController
             }
         }
     }
+    public function registro()
+    {
+        if (isset($_POST)) {
+            $usuario = $_POST['usuario'];
+            $password = $_POST['password'];
+            $result = $this->usuarioService->insert($usuario, $password);
+            if ($result) {
+                echo "<h2>Registrado correctamente</h2>";
+                header("Location: index.php");
+            } else {
+                echo "<h2>Error al registrarse</h2>";
+            }
+        }
+
+    }
+
+
 
 }
