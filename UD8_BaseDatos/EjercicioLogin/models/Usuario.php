@@ -9,6 +9,7 @@ class Usuario extends BaseDatos
     private $usuario;
     private $password;
     private $id;
+    private $rol;
 
     public function __construct()
     {
@@ -37,6 +38,23 @@ class Usuario extends BaseDatos
     public function setId($id)
     {
         $this->id = $id;
+    }
+    public function getRol()
+    {
+        return $this->rol;
+    }
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+    }
+    public static function fromArray(array $data) : Usuario
+    {
+        $usuario = new Usuario();
+        $usuario->setId($data['codigo']);
+        $usuario->setUsuario($data['nombre']);
+        $usuario->setPassword($data['clave']);
+        $usuario->setRol($data['rol']);
+        return $usuario;
     }
 
 }

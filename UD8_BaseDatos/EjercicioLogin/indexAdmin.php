@@ -7,13 +7,11 @@ require_once 'controllers/FrontController.php';
 use \Controllers\FrontController;
 
 frontController::main();
+
+
+
 ?>
-
-<h1>Zona Admin</h1>
-
-
-
-
+<h2>Administración</h2>
 
 
 
