@@ -29,13 +29,16 @@ class UsuarioController
             $result2 = $this->usuarioService->comprobarRol($usuario);
             if ($result) {
                 $_SESSION['login'] = true;
+                echo "<h2>Logeado correctamente</h2>";
                 if ($result2) {
+                    echo "<h2>Es administrador</h2>";
                     $_SESSION['admin'] = true;
                     $this->pages->render('../index');
 
                 } else {
+                    echo "<h2>No es administrador</h2>";
                     $_SESSION['admin'] = false;
-                    header("Location: index.php");
+                    $this->pages->render('../index');
                 }
             } else {
                 $_SESSION['login'] = false;
@@ -51,7 +54,7 @@ class UsuarioController
             $result = $this->usuarioService->insert($usuario, $password);
             if ($result) {
                 echo "<h2>Registrado correctamente</h2>";
-                header("Location: index.php");
+                $this->pages->render('../index');
             } else {
                 echo "<h2>Error al registrarse</h2>";
             }
