@@ -29,5 +29,10 @@ class UsuarioService
         return $this->usuarioRepository->comprobarRol($usuario);
     }
 
+    public function borrar(string $usuario): bool
+    {
+        return $this->usuarioRepository->borrar($usuario);
+    }
+
 }
 

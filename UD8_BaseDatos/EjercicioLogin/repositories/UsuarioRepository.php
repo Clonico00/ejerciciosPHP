@@ -71,6 +71,17 @@ class UsuarioRepository
             return false;
         }
     }
+    public function borrar(string $usuario): bool
+    {
+        $sql = "DELETE FROM usuarios WHERE empresa.usuarios.nombre = :usuario";
+        $consult = $this->baseDatos->conexion->prepare($sql);
+        $consult->bindParam(':usuario', $usuario);
+        if ($consult->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 }

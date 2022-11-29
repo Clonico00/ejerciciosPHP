@@ -22,42 +22,36 @@ class UsuarioController
 
     public function login()
     {
+        session_start();
         if (isset($_POST)) {
-            if (!isset($_COOKIE['intentos'])) {
-                setcookie('intentos', 1, time() + 120);
-            } else {
-                setcookie('intentos', $_COOKIE['intentos'] + 1, time() + 120);
-            }
-            if (isset($_COOKIE['intentos']) && $_COOKIE['intentos'] < 3) {
-                $usuario = $_POST['usuario'];
-                $password = $_POST['password'];
-                $result = $this->usuarioService->login($usuario, $password);
-                $result2 = $this->usuarioService->comprobarRol($usuario);
+            $usuario = $_POST['usuario'];
+            $password = $_POST['password'];
+            $result = $this->usuarioService->login($usuario, $password);
+            $result2 = $this->usuarioService->comprobarRol($usuario);
 
-                if ($result) {
+            if ($result) {
+                echo "<h2>Logeado correctamente</h2>";
+                $_SESSION['usuario'] = $usuario;
+                if ($result2) {
+                    echo "<h2>Es administrador</h2>";
+                    $_SESSION['admin'] = true;
                     $_SESSION['login'] = true;
-                    setcookie('intentos', 0, time() + 120);
-                    echo "<h2>Logeado correctamente</h2>";
-                    if ($result2) {
-                        echo "<h2>Es administrador</h2>";
-                        $_SESSION['admin'] = true;
-                        $this->pages->render('../index');
-
-                    } else {
-                        echo "<h2>No es administrador</h2>";
-                        $_SESSION['admin'] = false;
-                        $this->pages->render('../index');
-                    }
-                } else {
-                    $_SESSION['login'] = false;
-                    echo "<h2>Usuario o contraseña incorrectos</h2>";
                     $this->pages->render('../index');
 
+                } else {
+                    echo "<h2>No es administrador</h2>";
+                    $_SESSION['admin'] = false;
+                    $_SESSION['login'] = true;
+                    $this->pages->render('../index');
                 }
             } else {
-                echo "<h2>Demasiados intentos, espere 2 minutos</h2>";
+                $_SESSION['login'] = false;
+                echo "<h2>Usuario o contraseña incorrectos</h2>";
+                $this->pages->render('../index');
+
             }
         }
+
     }
 
     public function registro()
@@ -76,5 +70,40 @@ class UsuarioController
 
     }
 
+    public function borrar()
+    {
+        session_start();
+
+        if (isset($_SESSION['login'] ) && $_SESSION['login']) {
+            $usuario = $_SESSION['usuario'];
+            $result = $this->usuarioService->borrar($usuario);
+            if ($result) {
+                echo "<h2>Usuario borrado correctamente</h2>";
+                session_destroy();
+                $this->pages->render('../index');
+            } else {
+                echo "<h2>Error al borrar el usuario</h2>";
+            }
+        } else {
+            echo "<h2>Debes estar logeado para borrar tu usuario</h2>";
+            $this->pages->render('../index');
+        }
+
+
+    }
+    public function admin(){
+        session_start();
+        if (isset($_SESSION['login']) && $_SESSION['login']) {
+            if (isset($_SESSION['admin']) && $_SESSION['admin']) {
+                header('Location: indexAdmin.php');
+            }else{
+                echo "<h2>No eres administrador</h2>";
+                $this->pages->render('../index');
+            }
+        }else{
+            echo "<h2>Debes estar logeado para acceder a la pagina de administrador</h2>";
+            $this->pages->render('../index');
+        }
+    }
 
 }

@@ -10,3 +10,7 @@
 </form>
 
 <a href="views/registro.php">Registrarse</a>
+<br>
+<a href="index.php?controller=Usuario&action=borrar">Borrar Usuario</a>
+<br>
+<a href="index.php?controller=Usuario&action=admin">Ir a la pagina de administrador</a>
