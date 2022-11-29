@@ -29,16 +29,13 @@ class UsuarioController
             $result2 = $this->usuarioService->comprobarRol($usuario);
             if ($result) {
                 $_SESSION['login'] = true;
-                echo "<h2>Logeado correctamente</h2>";
                 if ($result2) {
-                    echo "<h2>Es administrador</h2>";
                     $_SESSION['admin'] = true;
-                    header("Location: indexAdmin.php");
+                    $this->pages->render('../index');
 
                 } else {
-                    echo "<h2>No es administrador</h2>";
                     $_SESSION['admin'] = false;
-                    header("Location: indexLogeado.php");
+                    header("Location: index.php");
                 }
             } else {
                 $_SESSION['login'] = false;
