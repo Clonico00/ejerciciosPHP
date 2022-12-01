@@ -33,6 +33,10 @@ class UsuarioService
     {
         return $this->usuarioRepository->borrar($usuario);
     }
+    public function modificar(string $usuario,string $password,string $rol): bool
+    {
+        return $this->usuarioRepository->modificar($usuario,$password,$rol);
+    }
 
 }
 

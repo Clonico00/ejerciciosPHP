@@ -74,7 +74,7 @@ class UsuarioController
     {
         session_start();
 
-        if (isset($_SESSION['login'] ) && $_SESSION['login']) {
+        if (isset($_SESSION['login']) && $_SESSION['login']) {
             $usuario = $_SESSION['usuario'];
             $result = $this->usuarioService->borrar($usuario);
             if ($result) {
@@ -91,19 +91,44 @@ class UsuarioController
 
 
     }
-    public function admin(){
+
+    public function admin()
+    {
         session_start();
         if (isset($_SESSION['login']) && $_SESSION['login']) {
             if (isset($_SESSION['admin']) && $_SESSION['admin']) {
                 header('Location: indexAdmin.php');
-            }else{
+            } else {
                 echo "<h2>No eres administrador</h2>";
                 $this->pages->render('../index');
             }
-        }else{
+        } else {
             echo "<h2>Debes estar logeado para acceder a la pagina de administrador</h2>";
             $this->pages->render('../index');
         }
     }
+
+    public function modificar()
+    {
+        session_start();
+        if (isset($_SESSION['login']) && $_SESSION['login']) {
+            if (isset($_POST)) {
+                $usuario = $_SESSION['usuario'];
+                $password = $_POST['password'];
+                $rol = $_POST['rol'];
+                $result = $this->usuarioService->modificar($usuario, $password, $rol);
+                if ($result) {
+                    echo "<h2>Usuario modificado correctamente</h2>";
+                    $this->pages->render('../index');
+                } else {
+                    echo "<h2>Error al modificar el usuario</h2>";
+                }
+            }
+        } else {
+            echo "<h2>Debes estar logeado para modificar tus datos</h2>";
+            $this->pages->render('../index');
+        }
+    }
+
 
 }

@@ -82,6 +82,20 @@ class UsuarioRepository
             return false;
         }
     }
+    public function modificar(string $usuario,string $password,string $rol): bool
+    {
+        $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 4]);
+        $sql = "UPDATE usuarios SET clave = :password,rol=:rol WHERE empresa.usuarios.nombre = :usuario";
+        $consult = $this->baseDatos->conexion->prepare($sql);
+        $consult->bindParam(':usuario', $usuario);
+        $consult->bindParam(':password', $password);
+        $consult->bindParam(':rol', $rol);
+        if ($consult->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 }
