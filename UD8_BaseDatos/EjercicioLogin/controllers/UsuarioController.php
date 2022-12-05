@@ -112,6 +112,7 @@ class UsuarioController
     {
         session_start();
         if (isset($_SESSION['login']) && $_SESSION['login']) {
+
             if (isset($_POST)) {
                 $usuario = $_SESSION['usuario'];
                 $password = $_POST['password'];
